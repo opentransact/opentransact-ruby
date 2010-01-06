@@ -5,13 +5,15 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "opentransact"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "pelleb@gmail.com"
-    gem.homepage = "http://github.com/pelle/opentransact"
+    gem.summary = %Q{OpenTransact client for Ruby}
+    gem.description = %Q{OpenTransact client for Ruby}
+    gem.email = "pelle@stakeventures.com"
+    gem.homepage = "http://opentransact.github.com"
     gem.authors = ["Pelle Braendgaard"]
+    gem.add_dependency "oauth", ">=0.3.6"
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "yard", ">= 0"
+    gem.add_development_dependency "fakeweb", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

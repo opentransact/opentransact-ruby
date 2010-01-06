@@ -1,6 +1,6 @@
-= opentransact
+= OpenTransact Ruby Client
 
-Description goes here.
+This library provides an easy to use client for interacting with OpenTransact financial service providers.
 
 == Note on Patches/Pull Requests
  
