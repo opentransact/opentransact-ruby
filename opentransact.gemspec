@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Pelle Braendgaard"]
   s.email       = ["pelle@stakeventures.com"]
   s.homepage    = "http://opentransact.org"
-  s.summary     = %q{TODO: OpenTransact client for Ruby}
-  s.description = %q{TODO: OpenTransact client for Ruby}
+  s.summary     = %q{OpenTransact client for Ruby}
+  s.description = %q{OpenTransact client for Ruby}
 
   s.rubyforge_project = "opentransact"
 
