@@ -1,1 +1,5 @@
-require 'open_transact'
+require "opentransact/server"
+require "opentransact/asset"
+require "opentransact/client"
+module OpenTransact
+end
