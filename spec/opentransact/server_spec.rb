@@ -4,11 +4,19 @@ describe OpenTransact::Server do
   describe "defaults" do
     
     before(:each) do
-      @server = OpenTransact::Server.new :url => "http://nubux.heroku.com", :key=>"consumer_key", :secret=>"consumer_secret"
+      @server = OpenTransact::Server.new :url => "https://picomoney.com", :key=>"consumer_key", :secret=>"consumer_secret"
     end
     
     it "should have url" do
-      @server.url.should == "http://nubux.heroku.com"
+      @server.url.should == "https://picomoney.com"
+    end
+    
+    it "have key" do
+      @server[:key].should == "consumer_key"
+    end
+    
+    it "have secret" do
+      @server[:secret].should == "consumer_secret"
     end
     
     describe "Consumer" do
@@ -17,7 +25,7 @@ describe OpenTransact::Server do
       end
       
       it "should have site" do
-        @consumer.site.should=="http://nubux.heroku.com"
+        @consumer.site.should=="https://picomoney.com"
       end
       
       it "should have key" do

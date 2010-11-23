@@ -1,6 +1,70 @@
 = OpenTransact Ruby Client
 
-This library provides an easy to use client for interacting with OpenTransact financial service providers.
+This library provides an easy to use client for interacting with OpenTransact[http://opentransact.org] financial service providers.
+
+This is currently a work in progress and we need to add better error checking, exceptions etc.
+
+== Quick start
+
+An OpenTransact asset is a server that accepts either a http POST or GET request containing a to and an amount field.
+
+There are 2 major ways of performing a transfer/payment with OpenTransact.
+
+* Simple Web Payments - Simplest to get started
+* Pre authorized payments - Uses OAuth
+
+See [http://www.opentransact.org/usecases.html]
+
+=== Simple Web Payments
+
+In your controller create a Asset object and redirect to url:
+
+  @asset = OpenTransact::Asset.new "http://picomoney.com/pelle-hours"
+  redirect_to @asset.transfer_url 12, "bob@test.com", "For implementing shopping cart"
+
+TODO. Work out web callback method, based on http://nubux.heroku.com.
+
+=== Pre authorized Payments
+
+OpenTransact delegates all of this to OAuth. This library only supports OAuth 1.0a at the moment. OAuth 2.0 is easy to implement so it will be added shortly.
+
+==== OAuth Authorization
+
+You need to register your application eg. https://picomoney.com/client_applications/new
+
+This whole section can be handled transparently by the OAuth Plugin http://github.com/pelle/oauth-plugin
+
+Now request authorization:
+
+  def request_authorization
+    @consumer = OAuth::Consumer.new "my key", "my secret", :site=>"http://picomoney.com/pelle-hours"
+    #callback_url is a url on your site
+    @request_token =  @consumer.get_request_token(:oauth_callback=>callback_url) 
+    session[@request_token.token]=@request_token.secret
+    redirect_to @request_token.authorize_url
+  end
+
+The user will authorize your app and get redirected back to your callback url
+
+  def callback
+    @consumer = OAuth::Consumer.new "my key", "my secret", :site=>"http://picomoney.com/pelle-hours"
+    
+    # build up request_token
+    @request_token = OAuth::RequestToken.new @consumer, params[:oauth_token], session[params[:oauth_token]]
+    
+    # exchange request_token for permanent access_token
+    @access_token = @request_token.get_access_token
+    # associate this with your user in your database
+  end
+  
+Performing payments. This could be subscription payments etc.
+   
+  @asset = OpenTransact::Asset.new "http://picomoney.com/pelle-hours", 
+          :token=>@access_token.token, :secret=>@access_token.secret,
+          :consumer_key=>"my key", :consumer_secret=>"my secret"
+          
+  @asset.transfer 12, "bob@test.com", "For implementing shopping cart"
+
 
 == Note on Patches/Pull Requests
  

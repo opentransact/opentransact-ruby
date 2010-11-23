@@ -1,43 +1,76 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe OpenTransact::Client do
-  
-  before(:each) do
-    @asset = OpenTransact::Asset.new "http://nubux.heroku.com", :key => "key", :secret => "secret"
-  end
-  
-  describe "defaults" do
+    
+  describe "no credentials" do
     
     before(:each) do
-      @client = OpenTransact::Client.new
+      @client = OpenTransact::Client.new "https://picomoney.com"
     end
     
-    it "should not have asset" do
-      @client.asset.should be_nil
+    it "should not have assets" do
+      @client.assets.should == []
     end
     
+    it "have site" do
+      @client.site.should == "https://picomoney.com"
+    end
+    
+    describe "server" do
+      subject { @client.server }
+      it { should_not be_nil }
+      it { subject.url.should == "https://picomoney.com" }
+      it { subject[:key].should be_nil }
+      it { subject[:secret].should be_nil }
+      
+    end
+  end
+  
+  describe "no credentials site in options" do
+    
+    before(:each) do
+      @client = OpenTransact::Client.new :site => "https://picomoney.com"
+    end
+    
+    it "should not have assets" do
+      @client.assets.should == []
+    end
+    
+    it "have site" do
+      @client.site.should == "https://picomoney.com"
+    end
+    
+    describe "server" do
+      subject { @client.server }
+      it { should_not be_nil }
+      it { subject.url.should == "https://picomoney.com" }
+    end
   end
 
   describe "with token" do
     
     before(:each) do
-      @client = OpenTransact::Client.new :asset=>@asset, :token=>"my token", :secret=>"my secret"
+      @client = OpenTransact::Client.new "https://picomoney.com", 
+                      :token => "my token", :secret => "my secret", 
+                      :consumer_key => "consumer key", :consumer_secret => "consumer secret"
+        
     end
     
     it "should have token" do
-      @client.token.should=="my token"
+      @client.send(:token).should=="my token"
     end
     
     it "should have secret" do
-      @client.secret.should=="my secret"
+      @client.send(:secret).should=="my secret"
     end
     
-    it "should have asset" do
-      @client.asset.should == @asset
-    end
-    
-    it "should have server" do
-      @client.server.should == @asset.server
+    describe "server" do
+      subject { @client.server }
+      it { should_not be_nil }
+      it { subject.url.should == "https://picomoney.com" }
+      
+      it { subject[:key].should == "consumer key" }
+      it { subject[:secret].should == "consumer secret" }
     end
     
     describe "access token" do
@@ -45,8 +78,12 @@ describe OpenTransact::Client do
         @access_token = @client.access_token
       end
       
+      it "have be created" do
+        @access_token.should_not be_nil
+      end
+      
       it "should have assets consumer" do
-        @access_token.consumer.should == @asset.consumer
+        @access_token.consumer.should == @client.server.consumer
       end
       
       it "should have token" do
@@ -55,17 +92,6 @@ describe OpenTransact::Client do
 
       it "should have secret" do
         @access_token.secret.should=="my secret"
-      end
-      
-      
-      describe "transfer" do
-        before(:each) do
-          @access_token.should_receive(:post).with("http://nubux.heroku.com",{:amount=>1123,:to=>"bob",:memo=>"2 cows"})
-        end
-        
-        it "should perform transfer" do
-          @client.transfer 1123, "bob", "2 cows"
-        end
       end
     end
   end

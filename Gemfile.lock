@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    opentransact (0.0.2)
+    opentransact (0.1.0)
       oauth (~> 0.4.4)
 
 GEM

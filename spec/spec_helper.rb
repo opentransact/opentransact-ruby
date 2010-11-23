@@ -4,6 +4,6 @@ require 'opentransact'
 require 'fakeweb'
 require 'rspec'
 
-RSpec::Runner.configure do |config|
+RSpec::configure do |config|
    FakeWeb.allow_net_connect = false
 end

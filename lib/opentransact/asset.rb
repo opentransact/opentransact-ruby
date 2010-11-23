@@ -1,20 +1,37 @@
 module OpenTransact
+  # The Asset is the most important concept in OpenTransact. It represents an asset type.
   class Asset
-    attr_accessor :url, :transaction_url, :options
+    attr_accessor :url, :transaction_url, :client, :options
     
     def initialize(url,options={})
       @url = url
       @transaction_url = options[:transaction_url]||@url
+      @client = options[:client]
       @options = options||{}
     end
     
-    def server
-      @server ||= Server.new :key=>@options[:key],  :secret=>@options[:secret], :url=>@url
+    # Create a redirect url for a simple web payment
+    #
+    #   redirect_to @asset.transfer_url 12, "bob@test.com", "For implementing shopping cart"
+    #
+    def transfer_url(amount,to,memo,options={})
+      uri = URI.parse(transaction_url)
+      uri.query = URI.escape("amount=#{amount}&to=#{to}&memo=#{memo}")
+      uri.to_s
     end
     
-    def consumer
-      server && server.consumer || nil
+    # Perform a transfer (payment)
+    #
+    #   @asset.transfer 12, "bob@test.com", "For implementing shopping cart"
+    #
+    def transfer(amount,to,memo=nil)
+      client.access_token.post(transaction_url,{:amount=>amount,:to=>to,:memo=>memo}) if client
     end
     
+    protected
+    
+      def uri
+        @uri ||= URI.parse(url)
+      end
   end
 end
