@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<XRD xmlns='http://docs.oasis-open.org/ns/xri/xrd-1.0'>
+ 
+    <Subject>acct:pelle@picomoney.com</Subject>
+
+    <Alias>https://picomoney.com/profiles/pelle</Alias>
+ 
+    <Link rel='http://webfinger.net/rel/profile-page'
+          type='text/html'
+          href='https://picomoney.com/profiles/pelle' />
+    <Link rel='http://microformats.org/profile/hcard'
+          type='text/html'
+          href='https://picomoney.com/profiles/pelle' />
+    <Link rel='describedby'
+          type='text/html'
+          href='https://picomoney.com/profiles/pelle' />
+    <Link rel='http://webfinger.net/rel/avatar'
+          href='http://s3.amazonaws.com/picomoney.com/avatars/1/thumb/pelle_gravatar_320.jpg?1288973770'/>
+    <Link rel='http://opentransact.org/rel/wallet'
+          href='https://picomoney.com/wallets/pelle' />
+
+</XRD>

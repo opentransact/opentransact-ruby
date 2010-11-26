@@ -2,6 +2,8 @@ PATH
   remote: .
   specs:
     opentransact (0.1.0)
+      multi_json
+      nokogiri
       oauth (~> 0.4.4)
 
 GEM
@@ -23,6 +25,8 @@ GEM
     launchy (0.3.7)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
+    multi_json (0.0.5)
+    nokogiri (1.4.3.1)
     oauth (0.4.4)
     open_gem (1.4.2)
       launchy (~> 0.3.5)
@@ -47,6 +51,8 @@ DEPENDENCIES
   fuubar
   growl
   guard-rspec
+  multi_json
+  nokogiri
   oauth (~> 0.4.4)
   opentransact!
   rspec (~> 2.1.0)

@@ -7,3 +7,8 @@ require 'rspec'
 RSpec::configure do |config|
    FakeWeb.allow_net_connect = false
 end
+
+
+def read_fixture(name)
+  File.read(File.join(File.dirname(__FILE__),'fixtures',name))
+end

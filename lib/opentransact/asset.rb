@@ -28,6 +28,19 @@ module OpenTransact
       client.access_token.post(transaction_url,{:amount=>amount,:to=>to,:memo=>memo}) if client
     end
     
+    def name
+      @options["name"]
+    end
+    
+    def balance
+      @options["balance"]
+    end
+    
+    def [](key)
+      @options[key] if @options
+    end
+    
+    
     protected
     
       def uri

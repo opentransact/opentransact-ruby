@@ -1,3 +1,4 @@
 --require fuubar
 --format Fuubar
 --color
+--backtrace

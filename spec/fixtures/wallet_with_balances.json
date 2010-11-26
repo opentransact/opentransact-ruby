@@ -1,0 +1,9 @@
+{
+  "encoding":"UTF8",
+  "total":3,"version":1.0,"start":1,
+  "assets":[
+    {"name":"PicoPoints","url":"https://picomoney.com/picopoints", "balance":123},
+    {"name":"Bob Smith hours","url":"https://picomoney.com/bob-smith-hours", "balance":3},
+    {"name":"OpenTransact Karma","url":"https://picomoney.com/opentransact-karma"}
+  ]
+}
