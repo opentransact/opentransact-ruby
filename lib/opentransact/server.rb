@@ -1,6 +1,6 @@
 require 'oauth/consumer'
 require 'net/https'
-require 'nokogiri'
+require 'multi_xml'
 module OpenTransact
   
   # This class initially maintains and creates the OAuth Consumer for a particular OAuth site. The idea though is for it to
@@ -28,13 +28,13 @@ module OpenTransact
         http.use_ssl = (host_meta_uri.port==443)
         response = http.start {|http| http.request(request) }
         raise OpenTransact::UndiscoverableResource unless response.code=="200"
-        Nokogiri::XML::Document.parse(response.body)
+        MultiXml.parse(response.body)["XRD"]
       end
     end
     
     # returns a rel link from host meta
     def rel_link(rel)
-      host_meta.at("Link[rel='#{rel}']").attribute('href').value
+      host_meta["Link"].detect{|l| l["rel"]==rel}["href"] if host_meta && host_meta["Link"]
     end
     
     def [](key)

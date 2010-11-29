@@ -19,10 +19,6 @@ describe OpenTransact::Server do
         FakeWeb.register_uri(:get, "https://picomoney.com/.well-known/host-meta", :body => read_fixture("host-meta.xml"))
       end
       
-      it "should contain parsed xml" do
-        @server.host_meta.class.should==Nokogiri::XML::Document
-      end
-      
       { 
         "http://opentransact.org/rel/wallet"  => "https://picomoney.com/wallet",
         "http://opentransact.org/rel/assets"  => "https://picomoney.com/.well-known/opentransact",

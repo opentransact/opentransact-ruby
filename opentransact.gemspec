@@ -24,7 +24,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "fuubar"
   s.add_development_dependency "guard-rspec"
   s.add_development_dependency "growl"
+#  s.add_development_dependency "nokogiri"
   s.add_dependency "oauth", "~> 0.4.4"
   s.add_dependency "multi_json"
-  s.add_dependency "nokogiri"
+  s.add_dependency "multi_xml"
 end
