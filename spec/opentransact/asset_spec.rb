@@ -27,7 +27,7 @@ describe OpenTransact::Asset do
       describe "transfer" do
         before(:each) do
           @access_token = @asset.client.access_token
-          @access_token.should_receive(:post).with("https://picomoney.com",{:amount=>1123,:to=>"bob",:memo=>"2 cows"})
+          @access_token.should_receive(:post).with("https://picomoney.com",{:amount=>1123,:to=>"bob",:memo=>"2 cows"}, {"Accept"=>"application/json"})
         end
         
         it "should perform transfer" do

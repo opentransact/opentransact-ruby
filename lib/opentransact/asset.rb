@@ -25,7 +25,7 @@ module OpenTransact
     #   @asset.transfer 12, "bob@test.com", "For implementing shopping cart"
     #
     def transfer(amount,to,memo=nil)
-      client.access_token.post(transaction_url,{:amount=>amount,:to=>to,:memo=>memo}) if client
+      client.post(transaction_url,{:amount=>amount,:to=>to,:memo=>memo}) if client
     end
     
     def name
