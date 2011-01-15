@@ -79,8 +79,14 @@ module OpenTransact
         else
           true
         end
+      elsif response.code=="401"
+        raise Unauthorized.new(response)
+      elsif response.code=="403"
+        raise Forbidden.new(response)
+      elsif response.code=="402"
+        raise InsufficientFunds.new(response)
       else
-        false
+        raise HttpException.new(response)
       end
       
     end
@@ -94,4 +100,20 @@ module OpenTransact
       end
         
   end
+  
+  class HttpException < Exception
+    attr_reader :response
+    def initialize(response)
+      @response = response
+    end
+    
+    def message
+      super+(" (http response code #{@response.code})")
+    end
+  end
+  
+  class Unauthorized < HttpException; end
+  class Forbidden < HttpException; end
+  class InsufficientFunds < HttpException; end 
+
 end
