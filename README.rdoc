@@ -58,10 +58,11 @@ The user will authorize your app and get redirected back to your callback url
   end
   
 Performing payments. This could be subscription payments etc.
-   
-  @asset = OpenTransact::Asset.new "http://picomoney.com/pelle-hours", 
+  @client = OpenTransact::Client.new "http://picomoney.com", 
           :token=>@access_token.token, :secret=>@access_token.secret,
           :consumer_key=>"my key", :consumer_secret=>"my secret"
+          
+  @asset = OpenTransact::Asset.new "http://picomoney.com/pelle-hours", :client => @client
           
   @asset.transfer 12, "bob@test.com", "For implementing shopping cart"
 

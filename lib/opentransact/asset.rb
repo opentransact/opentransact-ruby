@@ -29,15 +29,24 @@ module OpenTransact
     end
     
     def name
-      @options["name"]
+      @name ||= @options["name"] || info["name"]
     end
     
     def balance
-      @options["balance"]
+      @balance ||= @options["balance"] || info["balance"]
+    end
+    
+    def available_balance
+      @balance ||= @options["available_balance"] || info["available_balance"]
     end
     
     def [](key)
       @options[key] if @options
+    end
+    
+    # Load meta data about asset from server
+    def info
+      @info ||= client.try(:get, transaction_url)||{}
     end
     
     
