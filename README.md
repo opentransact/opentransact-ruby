@@ -47,9 +47,7 @@ The Transfer Authorization requires you to have a pre registered OAuth 2 Client 
 
     @access_token = Rack::OAuth2::AccessToken::Bearer.new :access_token => "asfasdf1123123"
     @asset = OpenTransact::Asset.new :url => "http://picomoney.com/pelle-hours", :access_token => @access_token
-    @transfer = @asset.transfer :amount => 12, :to => "bob@test.com", :note => "For implementing shopping cart", :redirect_uri => "http://mysite.com/order/123"
-
-
+    @receipt = @asset.transfer! :amount => 12, :to => "bob@test.com", :note => "For implementing shopping cart", :redirect_uri => "http://mysite.com/order/123"
 
 
 ## Note on Patches/Pull Requests

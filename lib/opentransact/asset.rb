@@ -13,16 +13,24 @@ module OpenTransact
       attr_missing!
     end
 
+    # Create a TransferRequest
     def request(attributes = {})
       OpenTransact::TransferRequest.new attributes.merge({:asset => self})
     end
 
+    # Create a TransferAuthorization
     def authorize(attributes = {})
       OpenTransact::TransferAuthorization.new attributes.merge({:asset => self, :client_id => @client_id})
     end
 
+    # Create a Transfer object
     def transfer(attributes = {})
       OpenTransact::Transfer.new attributes.merge({:asset => self, :access_token => @access_token})
+    end
+
+    # Perform a transfer
+    def transfer!(attributes = {})
+      transfer(attributes).perform!
     end
 
   end

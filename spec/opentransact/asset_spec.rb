@@ -93,12 +93,13 @@ describe OpenTransact::Asset do
   describe "transfer" do
     subject { asset.transfer transfer_attributes }
     let(:attributes) {
-      required_attributes.merge({:access_token => 'tk_12323'})
+      required_attributes.merge({:access_token => access_token})
     }
+    let(:access_token) { double("access_token") }
     let(:transfer_attributes) { {} }
     it { should be_a OpenTransact::Transfer }
     its(:url) { should == 'https://someurl.example.com/usd' }
-    its(:access_token) { should == 'tk_12323' }
+    its(:access_token) { should == access_token }
     its(:attributes) { should == {} }
     its(:asset) { should == asset }
 
@@ -109,9 +110,7 @@ describe OpenTransact::Asset do
           :from => "bob@example.com",
           :amount => 12.4,
           :note => "Thanks for that",
-          :for => "http://stuff.sample.com/invoice/123",
-          :redirect_uri => "http://stuff.sample.com/invoice/123/redirect",
-          :callback_uri => "http://stuff.sample.com/invoice/123/cb"
+          :for => "http://stuff.sample.com/invoice/123"
         }
       end
 
@@ -121,14 +120,31 @@ describe OpenTransact::Asset do
         :from => "bob@example.com",
         :amount => 12.4,
         :note => "Thanks for that",
-        :for => "http://stuff.sample.com/invoice/123",
-        :redirect_uri => "http://stuff.sample.com/invoice/123/redirect",
-        :callback_uri => "http://stuff.sample.com/invoice/123/cb"
+        :for => "http://stuff.sample.com/invoice/123"
         }
       }
 
     end
 
+  end
+
+  describe "transfer!" do
+    let(:attributes) {
+      required_attributes.merge({:access_token => access_token})
+    }
+    let(:access_token) { double("access_token") }
+
+    it "should perform transfer" do
+      access_token.should_receive(:post).with('https://someurl.example.com/usd',  'amount=12.4&for=http%3A%2F%2Fstuff.sample.com%2Finvoice%2F123&from=bob%40example.com&note=Thanks+for+that&to=alice%40example.com')
+
+      asset.transfer!({
+        :to => "alice@example.com",
+        :from => "bob@example.com",
+        :amount => 12.4,
+        :note => "Thanks for that",
+        :for => "http://stuff.sample.com/invoice/123"
+      })
+    end
   end
 
 end
