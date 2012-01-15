@@ -4,7 +4,7 @@ This library provides an easy to use client for interacting with (OpenTransact)[
 
 This is currently a work in progress and we need to add better error checking, exceptions etc.
 
-== Quick start
+## Intro
 
 An OpenTransact asset is a server that accepts either a http POST or GET request containing a to and an amount field.
 
@@ -45,14 +45,14 @@ See (Transfer Authorization Response)[http://www.opentransact.org/core.html#resp
 
 The Transfer Authorization requires you to have a pre registered OAuth 2 Client with the asset:
 
-    @asset = OpenTransact::Asset.new :url => "http://picomoney.com/pelle-hours", :access_token => "asfasdf1123123"
+    @access_token = Rack::OAuth2::AccessToken::Bearer.new :access_token => "asfasdf1123123"
+    @asset = OpenTransact::Asset.new :url => "http://picomoney.com/pelle-hours", :access_token => @access_token
     @transfer = @asset.transfer :amount => 12, :to => "bob@test.com", :note => "For implementing shopping cart", :redirect_uri => "http://mysite.com/order/123"
 
-TBD actually perform payment
 
 
 
-== Note on Patches/Pull Requests
+## Note on Patches/Pull Requests
 
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -62,6 +62,6 @@ TBD actually perform payment
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2010-12 Pelle Braendgaard and contributors. See LICENSE for details.

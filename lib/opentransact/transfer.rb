@@ -9,5 +9,9 @@ module OpenTransact
       super attributes
       @attributes.delete(:access_token)
     end
+
+    def perform!
+      access_token.post url, query_string
+    end
   end
 end
