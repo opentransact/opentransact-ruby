@@ -18,7 +18,7 @@ module OpenTransact
     end
 
     def query_string
-      @query_string ||= Rack::OAuth2::Util.compact_hash(attributes).to_query
+      @query_string ||= attributes.reject{|key, value| value.blank? }.to_query
     end
   end
 end

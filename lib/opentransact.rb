@@ -1,6 +1,7 @@
 require 'attr_required'
 require 'attr_optional'
-require 'rack/oauth2'
+require 'httpclient'
+require 'active_support/core_ext'
 require "opentransact/asset"
 require "opentransact/abstract_transfer"
 require "opentransact/transfer_request"

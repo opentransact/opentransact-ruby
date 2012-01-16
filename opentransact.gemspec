@@ -24,8 +24,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency "fuubar"
   s.add_development_dependency "guard-rspec"
   s.add_development_dependency "growl"
-#  s.add_development_dependency "nokogiri"
-  s.add_dependency "rack-oauth2"
+
+  s.add_runtime_dependency "httpclient", ">= 2.2.0.2"
+  s.add_runtime_dependency "activesupport", ">= 2.3"
+  s.add_runtime_dependency "i18n"
+  s.add_runtime_dependency "attr_required", ">= 0.0.3"
   s.add_dependency "multi_json"
-  s.add_dependency "multi_xml"
+  s.add_dependency 'rack'
 end

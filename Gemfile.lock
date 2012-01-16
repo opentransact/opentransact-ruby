@@ -2,9 +2,12 @@ PATH
   remote: .
   specs:
     opentransact (1.0.0.pre)
+      activesupport (>= 2.3)
+      attr_required (>= 0.0.3)
+      httpclient (>= 2.2.0.2)
+      i18n
       multi_json
-      multi_xml
-      rack-oauth2
+      rack
 
 GEM
   remote: http://rubygems.org/
@@ -27,17 +30,8 @@ GEM
       guard (>= 0.10.0)
     httpclient (2.2.4)
     i18n (0.6.0)
-    json (1.6.5)
     multi_json (1.0.4)
-    multi_xml (0.4.1)
     rack (1.4.0)
-    rack-oauth2 (0.11.0)
-      activesupport (>= 2.3)
-      attr_required (>= 0.0.3)
-      httpclient (>= 2.2.0.2)
-      i18n
-      json (>= 1.4.3)
-      rack (>= 1.1)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
       rspec-expectations (~> 2.8.0)
